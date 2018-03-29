@@ -27,3 +27,5 @@ RUN curl -o google-cloud-sdk.tar.gz ${CLOUD_SDK_URL} \
 RUN go get github.com/golang/dep/cmd/... \
   && go get github.com/alecthomas/gometalinter \
   && go get github.com/haya14busa/gosum/cmd/gosumcheck
+
+RUN gometalinter --install
