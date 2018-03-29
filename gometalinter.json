@@ -1,0 +1,26 @@
+{
+  "Enable": [
+    "deadcode",
+    "dupl",
+    "errcheck",
+    "gas",
+    "goconst",
+    "gocyclo",
+    "gofmt",
+    "goimports",
+    "golint",
+    "gosimple",
+    "gotype",
+    "ineffassign",
+    "interfacer",
+    "maligned",
+    "megacheck",
+    "misspell",
+    "structcheck",
+    "unconvert",
+    "unused",
+    "varcheck",
+    "vet",
+    "vetshadow"
+  ]
+}
