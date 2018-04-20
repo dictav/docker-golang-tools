@@ -2,6 +2,8 @@ FROM circleci/golang:1.10
 
 COPY gometalinter.json /gometalinter.json
 
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+
 RUN sudo apt-get update && sudo apt-get install -y \
   libmecab2 \
   libmecab-dev \
@@ -10,6 +12,7 @@ RUN sudo apt-get update && sudo apt-get install -y \
   parallel \
   awscli \
   ca-certificates \
+  git-lfs \
   && sudo apt-get clean \
   && sudo rm -rf /var/lib/apt/lists/*
 
@@ -26,6 +29,7 @@ RUN curl -o google-cloud-sdk.tar.gz ${CLOUD_SDK_URL} \
 
 RUN go get github.com/golang/dep/cmd/... \
   && go get github.com/alecthomas/gometalinter \
-  && go get github.com/haya14busa/gosum/cmd/gosumcheck
+  && go get github.com/haya14busa/gosum/cmd/gosumcheck \
+  && go get github.com/TeamMomentum/go-bindata/go-bindata
 
 RUN gometalinter --install

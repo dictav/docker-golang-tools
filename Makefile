@@ -1,4 +1,4 @@
-VERSION=1.10
+VERSION=1.10.1
 REPO=dictav/golang-tools
 
 build: Dockerfile
