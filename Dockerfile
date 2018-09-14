@@ -1,4 +1,4 @@
-FROM circleci/golang:1.10.3
+FROM circleci/golang:1.11
 
 COPY gometalinter.json /gometalinter.json
 
@@ -28,9 +28,7 @@ RUN curl -o google-cloud-sdk.tar.gz ${CLOUD_SDK_URL} \
   && sudo /google-cloud-sdk/bin/gcloud components update -q
 
 RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh \
-  && go get gopkg.in/alecthomas/gometalinter.v2 \
   && go get github.com/haya14busa/gosum/cmd/gosumcheck \
   && go get github.com/TeamMomentum/go-bindata/go-bindata
 
-RUN ln -s /go/bin/gometalinter.v2 /go/bin/gometalinter
-RUN gometalinter --install
+RUN sudo sh -c 'curl -L https://git.io/vp6lP | sh'

@@ -1,5 +1,6 @@
-LAST=1.10.3
-VERSION=1.10.3-dep.v5
+LAST=1.11.0
+DEP=v0.5.0
+VERSION=$(LAST)-dep.$(DEP)
 REPO=dictav/golang-tools
 
 build: Dockerfile

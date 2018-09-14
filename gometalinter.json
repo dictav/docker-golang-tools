@@ -3,7 +3,7 @@
     "deadcode",
     "dupl",
     "errcheck",
-    "gas",
+    "gosec",
     "goconst",
     "gocyclo",
     "gofmt",
