@@ -1,4 +1,4 @@
-FROM golang:1.11.2
+FROM golang:1.11.4
 
 # prepare to install git-lfs
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash

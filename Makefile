@@ -1,4 +1,4 @@
-LAST=1.11.2
+LAST=1.11.4
 DEP=v0.5.0
 VERSION=$(LAST)-dep.$(DEP)
 REPO=dictav/golang-tools
