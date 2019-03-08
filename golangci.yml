@@ -1,0 +1,36 @@
+run:
+  skip-dirs:
+
+  skip-files:
+
+linters:
+  enable-all: true
+  disable:
+    - gochecknoglobals
+    - gochecknoinits
+    - lll
+
+linters-settings:
+  dupl:
+    threshold: 50
+  govet:
+    check-shadowing: true
+  golint:
+    min-confidence: 0
+  gocyclo:
+    min-complexity: 15
+  maligned:
+    suggest-new: true
+
+  # gocritic has tons of checkers
+  # https://go-critic.github.io/overview#checks-overview
+  # gocritic:
+
+issues:
+  max-per-linter: 0
+  max-same-issues: 0
+  exclude-rules:
+    - path: ".*_test.go$"
+      text: "Using the variable on range scope `(tt|v)` in function literal"
+      linters:
+        - scopelint

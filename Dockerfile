@@ -1,4 +1,4 @@
-FROM golang:1.11.5
+FROM golang:1.12.0
 
 # prepare to install git-lfs
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
@@ -32,6 +32,7 @@ RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh \
   && go get github.com/haya14busa/gosum/cmd/gosumcheck \
   && go get github.com/TeamMomentum/go-bindata/go-bindata
 
-# gometalinter
-RUN sh -c 'curl -L https://git.io/vp6lP | sh'
-COPY gometalinter.json /gometalinter.json
+# golangci-lint
+RUN sh -c "curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH)/bin"
+RUN golangci-lint --version
+COPY golangci.yml /golangci.yml

@@ -7,5 +7,5 @@
 - gcloud
 - go tools
   - github.com/golang/dep
-  - github.com/alecthomas/gometalinter
+  - github.com/golangci/golangci-lint
   - github.com/haya14busa/gosum/cmd/gosumcheck
