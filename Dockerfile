@@ -1,4 +1,4 @@
-FROM golang:1.12.0
+FROM golang:1.12.6
 
 # prepare to install git-lfs
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 RUN update-ca-certificates
 
 # install gcloud command
-ENV CLOUD_SDK_URL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-189.0.0-linux-x86_64.tar.gz
+ENV CLOUD_SDK_URL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-253.0.0-linux-x86_64.tar.gz
 ENV PATH $PATH:/google-cloud-sdk/bin
 RUN curl -o google-cloud-sdk.tar.gz ${CLOUD_SDK_URL} \
   && tar zxf google-cloud-sdk.tar.gz \
