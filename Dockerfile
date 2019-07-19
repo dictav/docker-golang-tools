@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
   awscli \
   ca-certificates \
   git-lfs \
+  protobuf-compiler \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -35,4 +36,7 @@ RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh \
 # golangci-lint
 RUN sh -c "curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH)/bin"
 RUN golangci-lint --version
+
+# install protobuf for Go
+RUN GO111MODULE=on go get github.com/golang/protobuf/protoc-gen-go@v1.3.2
 COPY golangci.yml /golangci.yml
