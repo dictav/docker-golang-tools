@@ -1,4 +1,4 @@
-FROM golang:1.12.6
+FROM golang:1.12.9
 
 # prepare to install git-lfs
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
@@ -28,15 +28,16 @@ RUN curl -o google-cloud-sdk.tar.gz ${CLOUD_SDK_URL} \
   && /google-cloud-sdk/install.sh -q \
   && /google-cloud-sdk/bin/gcloud components update -q
 
-# install dep, gosumcheck and go-bindata
+# install dep, gosumcheck, go-bindata and stringer
 RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh \
   && go get github.com/haya14busa/gosum/cmd/gosumcheck \
-  && go get github.com/TeamMomentum/go-bindata/go-bindata
+  && go get github.com/TeamMomentum/go-bindata/go-bindata \
+  && go get golang.org/x/tools/cmd/stringer
+
+# install protobuf for Go
+RUN GO111MODULE=on go get github.com/golang/protobuf/protoc-gen-go@v1.3.2
 
 # golangci-lint
 RUN sh -c "curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH)/bin"
 RUN golangci-lint --version
-
-# install protobuf for Go
-RUN GO111MODULE=on go get github.com/golang/protobuf/protoc-gen-go@v1.3.2
 COPY golangci.yml /golangci.yml
