@@ -1,10 +1,11 @@
-FROM golang:1.12.9
+FROM golang:1.13.3-alpine
 
 # prepare to install git-lfs
-RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+RUN apk add --no-cache curl \
+  && curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
 
 # install 
-RUN apt-get update && apt-get install -y \
+RUN apk add --no-cache \
   libmecab2 \
   libmecab-dev \
   mecab \
@@ -13,14 +14,12 @@ RUN apt-get update && apt-get install -y \
   awscli \
   ca-certificates \
   git-lfs \
-  protobuf-compiler \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+  protobuf-compiler
 
 RUN update-ca-certificates
 
 # install gcloud command
-ENV CLOUD_SDK_URL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-253.0.0-linux-x86_64.tar.gz
+ENV CLOUD_SDK_URL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-268.0.0-linux-x86_64.tar.gz
 ENV PATH $PATH:/google-cloud-sdk/bin
 RUN curl -o google-cloud-sdk.tar.gz ${CLOUD_SDK_URL} \
   && tar zxf google-cloud-sdk.tar.gz \
