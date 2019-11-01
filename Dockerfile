@@ -1,11 +1,13 @@
-FROM golang:1.13.3-alpine
+FROM golang:1.13.3
+
+RUN apt-get update
 
 # prepare to install git-lfs
-RUN apk add --no-cache curl \
+RUN apt-get install -y \
   && curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
 
 # install 
-RUN apk add --no-cache \
+RUN apt-get install -y \
   libmecab2 \
   libmecab-dev \
   mecab \
@@ -14,7 +16,8 @@ RUN apk add --no-cache \
   awscli \
   ca-certificates \
   git-lfs \
-  protobuf-compiler
+  protobuf-compiler \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN update-ca-certificates
 
