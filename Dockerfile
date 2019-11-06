@@ -1,5 +1,9 @@
 FROM golang:1.13.3
 
+ENV CLOUD_SDK_VERSION 268.0.0
+ENV PROTOC_GEN_GO_VERSION 1.3.2
+ENV GOLANGCI_LINT_VERSION 1.21.0
+
 RUN apt-get update
 
 # prepare to install git-lfs
@@ -22,7 +26,7 @@ RUN apt-get install -y \
 RUN update-ca-certificates
 
 # install gcloud command
-ENV CLOUD_SDK_URL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-268.0.0-linux-x86_64.tar.gz
+ENV CLOUD_SDK_URL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz
 ENV PATH $PATH:/google-cloud-sdk/bin
 RUN curl -o google-cloud-sdk.tar.gz ${CLOUD_SDK_URL} \
   && tar zxf google-cloud-sdk.tar.gz \
@@ -37,9 +41,9 @@ RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh \
   && go get golang.org/x/tools/cmd/stringer
 
 # install protobuf for Go
-RUN GO111MODULE=on go get github.com/golang/protobuf/protoc-gen-go@v1.3.2
+RUN GO111MODULE=on go get github.com/golang/protobuf/protoc-gen-go@v${PROTOC_GEN_GO_VERSION}
 
 # golangci-lint
-RUN sh -c "curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH)/bin"
+RUN curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v${GOLANGCI_LINT_VERSION}
 RUN golangci-lint --version
 COPY golangci.yml /golangci.yml
