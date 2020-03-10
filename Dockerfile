@@ -1,4 +1,4 @@
-FROM golang:1.13.8
+FROM golang:1.14.0
 
 ENV CLOUD_SDK_VERSION 282.0.0
 ENV PROTOC_GEN_GO_VERSION 1.3.4
@@ -34,9 +34,8 @@ RUN curl -o google-cloud-sdk.tar.gz ${CLOUD_SDK_URL} \
   && /google-cloud-sdk/install.sh -q \
   && /google-cloud-sdk/bin/gcloud components update -q
 
-# install dep, gosumcheck, go-bindata and stringer
-RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh \
-  && go get github.com/haya14busa/gosum/cmd/gosumcheck \
+# install gosumcheck, go-bindata and stringer
+RUN go get github.com/haya14busa/gosum/cmd/gosumcheck \
   && go get github.com/TeamMomentum/go-bindata/go-bindata \
   && go get golang.org/x/tools/cmd/stringer
 
