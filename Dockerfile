@@ -1,8 +1,8 @@
-FROM golang:1.15.0
+FROM golang:1.15.6
 
-ENV CLOUD_SDK_VERSION 305.0.0
-ENV PROTOC_GEN_GO_VERSION 1.4.2
-ENV GOLANGCI_LINT_VERSION 1.30.0
+ENV CLOUD_SDK_VERSION 322.0.0
+ENV PROTOC_GEN_GO_VERSION 1.4.3
+ENV GOLANGCI_LINT_VERSION 1.35.0
 
 RUN apt-get update
 
@@ -37,6 +37,7 @@ RUN curl -o google-cloud-sdk.tar.gz ${CLOUD_SDK_URL} \
 # install gosumcheck, go-bindata and stringer
 RUN go get github.com/haya14busa/gosum/cmd/gosumcheck \
   && go get github.com/TeamMomentum/go-bindata/go-bindata \
+	&& go get github.com/rakyll/statik \
   && go get golang.org/x/tools/cmd/stringer
 
 # install protobuf for Go

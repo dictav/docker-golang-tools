@@ -9,4 +9,6 @@
   - github.com/golang/protobuf/protoc-gen-go
   - github.com/golangci/golangci-lint
   - github.com/haya14busa/gosum/cmd/gosumcheck
+	- github.com/TeamMomentum/go-bindata/go-bindata
+	- github.com/rakyll/statik
   - golang.org/x/tools/cmd/stringer
