@@ -1,4 +1,4 @@
-FROM golang:1.15.8
+FROM golang:1.16.0
 
 ENV CLOUD_SDK_VERSION 328.0.0
 ENV PROTOC_GEN_GO_VERSION 1.4.3
@@ -34,14 +34,11 @@ RUN curl -o google-cloud-sdk.tar.gz ${CLOUD_SDK_URL} \
   && /google-cloud-sdk/install.sh -q \
   && /google-cloud-sdk/bin/gcloud components update -q
 
-# install gosumcheck, go-bindata and stringer
-RUN go get github.com/haya14busa/gosum/cmd/gosumcheck \
-  && go get github.com/TeamMomentum/go-bindata/go-bindata \
-	&& go get github.com/rakyll/statik \
-  && go get golang.org/x/tools/cmd/stringer
-
-# install protobuf for Go
-RUN GO111MODULE=on go get github.com/golang/protobuf/protoc-gen-go@v${PROTOC_GEN_GO_VERSION}
+# install some go tools
+RUN go install github.com/TeamMomentum/go-bindata/go-bindata@latest \
+	&& go install github.com/rakyll/statik@latest \
+  && go install golang.org/x/tools/cmd/stringer@latest \
+	&& go install github.com/golang/protobuf/protoc-gen-go@v${PROTOC_GEN_GO_VERSION}
 
 # golangci-lint
 RUN curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v${GOLANGCI_LINT_VERSION}
